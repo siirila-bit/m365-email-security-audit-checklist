@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Reboot — Get Hired Faster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0c;
+    --surface: #111114;
+    --surface2: #18181d;
+    --border: #232329;
+    --accent: #e8ff47;
+    --accent2: #47c8ff;
+    --danger: #ff5e5e;
+    --text: #f0f0f0;
+    --muted: #6b6b7a;
+    --success: #4fffb0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+  header { padding: 48px 0 0; text-align: center; }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; }
+  .logo span { display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+  h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(38px, 6vw, 64px); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 20px; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .subhead { font-size: 17px; color: var(--muted); font-weight: 300; max-width: 480px; margin: 0 auto 56px; line-height: 1.6; }
+  .upload-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 48px; margin-bottom: 32px; position: relative; overflow: hidden; }
+  .upload-card::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.6; }
+  .drop-zone { border: 1.5px dashed var(--border); border-radius: 12px; padding: 40px 24px; text-align: center; cursor: pointer; transition: all 0.2s ease; background: var(--surface2); position: relative; }
+  .drop-zone:hover, .drop-zone.dragover { border-color: var(--accent); background: rgba(232,255,71,0.04); }
+  .drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .drop-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+  .drop-label { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+  .drop-sub { font-size: 13px; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .file-selected { display: none; align-items: center; gap: 12px; padding: 14px 20px; background: rgba(232,255,71,0.07); border: 1px solid rgba(232,255,71,0.2); border-radius: 8px; margin-top: 16px; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent); }
+  .file-selected.show { display: flex; }
+  .form-row { margin-top: 24px; display: flex; gap: 16px; align-items: flex-end; }
+  .field { flex: 1; }
+  label { display: block; font-size: 11px; font-family: 'DM Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  input[type="text"], select { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s; }
+  input[type="text"]:focus, select:focus { border-color: var(--accent); }
+  select option { background: var(--surface2); }
+  .btn-primary { background: var(--accent); color: #0a0a0c; border: none; border-radius: 8px; padding: 13px 32px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.05em; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .btn-primary:hover { background: #f5ff80; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-secondary { background: transparent; color: var(--accent2); border: 1px solid var(--accent2); border-radius: 8px; padding: 12px 28px; font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+  .btn-secondary:hover { background: rgba(71,200,255,0.08); }
+  .loading { display: none; text-align: center; padding: 40px; }
+  .loading.show { display: block; }
+  .spinner { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); }
+  #results { display: none; }
+  #results.show { display: block; }
+  .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; gap: 16px; }
+  .results-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 22px; }
+  .scores-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  @media (max-width: 600px) { .scores-grid { grid-template-columns: 1fr; } .form-row { flex-direction: column; } }
+  .score-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+  .score-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .score-value { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 48px; line-height: 1; margin-bottom: 8px; }
+  .score-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 16px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 2px; transition: width 1s cubic-bezier(0.16, 1, 0.3, 1); width: 0%; }
+  .score-obs { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .score-obs li { margin-bottom: 4px; padding-left: 12px; position: relative; list-style: none; }
+  .score-obs li::before { content: '→'; position: absolute; left: 0; font-size: 11px; }
+  .summary-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 12px; padding: 24px; margin-bottom: 28px; font-size: 15px; line-height: 1.7; color: #c8c8d0; }
+  .paywall { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; position: relative; overflow: hidden; }
+  .paywall::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 2px; background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+  .paywall h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px; margin-bottom: 12px; }
+  .paywall p { color: var(--muted); margin-bottom: 28px; font-size: 15px; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .price-badge { display: inline-block; background: rgba(232,255,71,0.1); border: 1px solid rgba(232,255,71,0.3); border-radius: 100px; padding: 6px 20px; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent); margin-bottom: 24px; }
+  #rewrite-results { display: none; }
+  #rewrite-results.show { display: block; margin-top: 28px; }
+  .rewrite-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 16px; }
+  .rewrite-section h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent2); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .rewrite-section h3::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .exp-entry { border-left: 2px solid var(--border); padding-left: 16px; margin-bottom: 20px; }
+  .exp-entry:last-child { margin-bottom: 0; }
+  .exp-meta { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .exp-title-text { font-weight: 500; font-size: 15px; margin-bottom: 4px; color: var(--text); }
+  .bullet-item { font-size: 14px; color: #b0b0be; padding: 4px 0 4px 16px; position: relative; line-height: 1.5; }
+  .bullet-item::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 6px; }
+  .keyword-tag { display: inline-block; background: rgba(71,200,255,0.08); border: 1px solid rgba(71,200,255,0.2); border-radius: 6px; padding: 4px 12px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent2); margin: 4px; }
+  .keyword-suggestion { font-size: 12px; color: var(--muted); margin-left: 4px; }
+  .error-msg { background: rgba(255,94,94,0.08); border: 1px solid rgba(255,94,94,0.2); border-radius: 8px; padding: 14px 18px; color: var(--danger); font-size: 14px; font-family: 'DM Mono', monospace; margin-top: 16px; display: none; }
+  .error-msg.show { display: block; }
+  footer { text-align: center; padding: 60px 0 40px; color: var(--muted); font-size: 13px; font-family: 'DM Mono', monospace; }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo"><span></span> Resume Reboot</div>
+    <h1>Your résumé isn't<br>getting you <em>interviews.</em></h1>
+    <p class="subhead">Upload it. We'll score it against your target role and rewrite every bullet point to actually land.</p>
+  </header>
+  <div class="upload-card" id="upload-card">
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf,.docx,.doc,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+      <span class="drop-icon">📄</span>
+      <div class="drop-label">Drop your résumé here</div>
+      <div class="drop-sub">PDF or DOCX · Max 5MB</div>
+    </div>
+    <div class="file-selected" id="file-selected">
+      <span>📎</span>
+      <span id="file-name"></span>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Target Job Title</label>
+        <input type="text" id="job-title" placeholder="e.g. Sales Engineer, DevOps Engineer, Product Manager">
+      </div>
+      <div class="field" style="max-width: 180px;">
+        <label>Industry</label>
+        <select id="industry">
+          <option value="technology">Technology</option>
+          <option value="cybersecurity">Cybersecurity</option>
+          <option value="sales">Sales</option>
+          <option value="finance">Finance</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="marketing">Marketing</option>
+          <option value="operations">Operations</option>
+          <option value="engineering">Engineering</option>
+        </select>
+      </div>
+      <button class="btn-primary" id="scan-btn" onclick="scanResume()">Scan Résumé →</button>
+    </div>
+    <div class="error-msg" id="error-msg"></div>
+  </div>
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loading-text">Analyzing your résumé...</div>
+  </div>
+  <div id="results">
+    <div class="results-header">
+      <div class="results-title">Your Scan Results</div>
+      <button class="btn-secondary" onclick="resetForm()">↩ Start Over</button>
+    </div>
+    <div class="scores-grid" id="scores-grid"></div>
+    <div class="summary-card" id="summary-card"></div>
+    <div class="paywall" id="paywall">
+      <div class="price-badge">One-time · $7</div>
+      <h2>Get the full rewrite</h2>
+      <p>Every bullet point rewritten with strong action verbs and quantified outcomes. Keyword gap analysis. Ready to paste in 60 seconds.</p>
+      <button class="btn-primary" style="font-size: 15px; padding: 15px 40px;" onclick="triggerRewrite()">Rewrite My Résumé →</button>
+    </div>
+    <div id="rewrite-results">
+      <div class="loading" id="rewrite-loading" style="display:none;">
+        <div class="spinner"></div>
+        <div class="loading-text">Rewriting your résumé...</div>
+      </div>
+      <div id="rewrite-content"></div>
+    </div>
+  </div>
+  <footer>Built by <a href="https://ther3boot.com" target="_blank">Reboot Labs</a> · Powered by Claude AI</footer>
+</div>
+<script>
+  let sessionId = null;
+  let jobTitle = null;
+
+  const dropZone = document.getElementById('drop-zone');
+  const fileInput = document.getElementById('file-input');
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files[0]) { fileInput.files = e.dataTransfer.files; showFileName(e.dataTransfer.files[0].name); }
+  });
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) showFileName(fileInput.files[0].name); });
+
+  function showFileName(name) {
+    document.getElementById('file-name').textContent = name;
+    document.getElementById('file-selected').classList.add('show');
+  }
+
+  function setLoading(show, text = 'Analyzing your résumé...') {
+    document.getElementById('loading').classList.toggle('show', show);
+    document.getElementById('loading-text').textContent = text;
+    document.getElementById('scan-btn').disabled = show;
+  }
+
+  function showError(msg) { const el = document.getElementById('error-msg'); el.textContent = msg; el.classList.add('show'); }
+  function hideError() { document.getElementById('error-msg').classList.remove('show'); }
+
+  function scoreColor(val) {
+    if (val >= 75) return '#4fffb0';
+    if (val >= 50) return '#e8ff47';
+    return '#ff5e5e';
+  }
+
+  async function scanResume() {
+    hideError();
+    const file = fileInput.files[0];
+    const jt = document.getElementById('job-title').value.trim();
+    if (!file) return showError('Please upload a résumé file.');
+    if (!jt) return showError('Please enter a target job title.');
+    setLoading(true);
+    document.getElementById('results').classList.remove('show');
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('job_title', jt);
+    try {
+      const res = await fetch('/scan', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || 'Scan failed.');
+      sessionId = data.session_id;
+      jobTitle = data.job_title;
+      renderScores(data.scores);
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function renderScores(scores) {
+    const grid = document.getElementById('scores-grid');
+    grid.innerHTML = '';
+    const dims = [
+      { label: 'ATS Compatibility', score: scores.ats_score, obs: scores.ats_observations },
+      { label: 'Narrative Clarity', score: scores.clarity_score, obs: scores.clarity_observations },
+      { label: 'Role Fit', score: scores.role_fit_score, obs: scores.role_fit_observations },
+    ];
+    dims.forEach(d => {
+      const card = document.createElement('div');
+      card.className = 'score-card';
+      const color = scoreColor(d.score);
+      card.innerHTML = `
+        <div class="score-label">${d.label}</div>
+        <div class="score-value" style="color:${color}">${d.score}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="background:${color}" data-width="${d.score}"></div></div>
+        <ul class="score-obs">${(d.obs||[]).map(o => `<li>${o}</li>`).join('')}</ul>`;
+      grid.appendChild(card);
+    });
+    setTimeout(() => {
+      document.querySelectorAll('.score-bar-fill').forEach(el => { el.style.width = el.dataset.width + '%'; });
+    }, 100);
+    document.getElementById('summary-card').textContent = scores.overall_summary || '';
+    document.getElementById('results').classList.add('show');
+    document.getElementById('rewrite-results').classList.remove('show');
+    document.getElementById('rewrite-content').innerHTML = '';
+    document.getElementById('paywall').style.display = 'block';
+  }
+
+  async function triggerRewrite() {
+    if (!sessionId) return;
+    const industry = document.getElementById('industry').value;
+    // Redirect to Stripe checkout
+    const fd = new FormData();
+    fd.append('session_id', sessionId);
+    fd.append('job_title', jobTitle);
+    fd.append('industry', industry);
+    try {
+      const res = await fetch('/create-checkout-session', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || 'Checkout failed.');
+      window.location.href = data.checkout_url;
+    } catch (err) {
+      showError(err.message);
+    }
+  }
+
+  function renderRewrite(data) {
+    const r = data.rewritten;
+    const kw = data.keyword_gaps || [];
+    let html = '';
+    if (r.summary) {
+      html += `<div class="rewrite-section"><h3>Rewritten Summary</h3><p style="line-height:1.7;color:#c8c8d0;font-size:15px;">${r.summary}</p></div>`;
+    }
+    if (r.experience && r.experience.length) {
+      html += `<div class="rewrite-section"><h3>Experience</h3>`;
+      r.experience.forEach(exp => {
+        html += `<div class="exp-entry">
+          <div class="exp-title-text">${exp.title || ''}</div>
+          <div class="exp-meta">${exp.company || ''} · ${exp.dates || ''}</div>
+          ${(exp.bullets||[]).map(b => `<div class="bullet-item">${b}</div>`).join('')}
+        </div>`;
+      });
+      html += `</div>`;
+    }
+    if (r.skills && r.skills.length) {
+      html += `<div class="rewrite-section"><h3>Skills</h3><div>${r.skills.map(s => `<span class="keyword-tag">${s}</span>`).join(' ')}</div></div>`;
+    }
+    if (kw.length) {
+      html += `<div class="rewrite-section"><h3>Keyword Gaps</h3>${kw.map(k => `<div style="margin-bottom:12px;"><span class="keyword-tag">${k.keyword}</span><br><span class="keyword-suggestion">${k.suggestion}</span></div>`).join('')}</div>`;
+    }
+    html += `<div style="text-align:center;padding:32px 0;">
+      <button class="btn-primary" onclick="downloadDocx()" style="margin-right:12px;">⬇ Download .docx</button>
+      <button class="btn-secondary" onclick="copyRewrite()" style="margin-right:12px;">Copy as Text</button>
+      <button class="btn-secondary" onclick="resetForm()">Scan Another →</button>
+    </div>`;
+    document.getElementById('rewrite-content').innerHTML = html;
+  }
+
+  function downloadDocx() {
+    if (!sessionId) return;
+    window.location.href = '/download/' + sessionId;
+  }
+
+  function copyRewrite() {
+    const text = document.getElementById('rewrite-content').innerText;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => { alert('Copied to clipboard!'); });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      alert('Copied to clipboard!');
+    }
+  }
+
+  function resetForm() {
+    document.getElementById('results').classList.remove('show');
+    document.getElementById('rewrite-results').classList.remove('show');
+    document.getElementById('file-selected').classList.remove('show');
+    document.getElementById('error-msg').classList.remove('show');
+    fileInput.value = '';
+    document.getElementById('job-title').value = '';
+    sessionId = null;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
